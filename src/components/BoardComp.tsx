@@ -18,15 +18,20 @@ const BoardComp: FC<BoardProps> = ({ board, setBoard }) => {
     }, [selectedCell])
 
     function clickOnCell(cell: Cell) {
-        if (cell.figure) setSelectedCell(cell)
+        if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
+            selectedCell.moveFigure(cell);
+            setSelectedCell(null);
+        } else {
+            setSelectedCell(cell)
+        }
     }
     function highlightCells() {
-        board.highlightCells(selectedCell)
-        updateBoard()
+        board.highlightCells(selectedCell);
+        updateBoard();
     }
     function updateBoard() {
-        const newBoard = board.getCopyBoard()
-        setBoard(newBoard)
+        const newBoard = board.getCopyBoard();
+        setBoard(newBoard);
     }
 
     return (

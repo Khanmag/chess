@@ -9,6 +9,11 @@ export default class Knight extends Figure {
     constructor(color: Colors, cell: Cell) {
         super(color, cell)
         this.logo = color === Colors.BLACK ? blackLogo : whiteLogo
-        this.name = FigureNames.BISHOP
+        this.name = FigureNames.KNIGHT
+    }
+    canMove(target: Cell): boolean {
+        if (!super.canMove(target)) return false
+
+        return true
     }
 }
