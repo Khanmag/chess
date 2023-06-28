@@ -20,6 +20,7 @@
 }
 
 .cell {
+  position: relative;
   width: 64px;
   height: 64px;
   display: flex;
@@ -27,6 +28,7 @@
   align-items: center;
 }
 .cell > img {
+  position: relative;
   max-width: 90%;
   max-height: 90%;
 }
@@ -37,4 +39,20 @@
 
 .white {
   background-color: rgb(160, 160, 160);
+}
+
+.selected {
+  border: 3px solid lightyellow;
+}
+
+.available {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background: lightgreen;
+  z-index: 3;
+}
+.available_figure {
+  border: 3px solid red;
 }

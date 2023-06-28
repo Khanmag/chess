@@ -1,15 +1,23 @@
 import React from 'react'
 import { Figure } from '../models/figures/Figure'
+import { Cell } from '../models/Cell'
 
 interface CellProps {
-    color: 'white' | 'black',
-    figure: Figure | null,
+  cell: Cell,
+  selected: boolean,
+  clickFunc: (cell: Cell) => void,
 }
 
-const CellComp:React.FC<CellProps> = ({color, figure}) => {
+const CellComp: React.FC<CellProps> = ({ cell, selected, clickFunc }) => {
+  const figureClasses = `cell ${cell.color} ${selected ? 'selected' : ''} 
+    ${cell.available && cell.figure ? 'available_figure' : ''}`
   return (
-    <div className={`cell ${color}`}>
-        {figure?.logo && <img src= {figure.logo} />}
+    <div
+      className={figureClasses}
+      onClick={() => clickFunc(cell)}
+    >
+      {cell.available && !cell.figure && <div className='available'></div>}
+      {cell.figure?.logo && <img src={cell.figure.logo} />}
     </div>
   )
 }
