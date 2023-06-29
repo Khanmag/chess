@@ -8,6 +8,7 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -55,4 +56,23 @@
 }
 .available_figure {
   border: 3px solid red;
+}
+
+
+.lost_figure_wrapper {
+  display: flex;
+  /* width: 50%; */
+  background-color: rgb(172, 182, 185);
+}
+.lost_figures {
+  width: 256px;
+  border: 2px solid rgb(255, 255, 255);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.lost_figures > h3 {
+  width: 100%;
+  text-align: center;
+  padding: 5px;
 }

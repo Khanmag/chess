@@ -1,28 +1,35 @@
-import React, { FC, useEffect, useState } from 'react'
-import { Board } from '../models/Board'
+import React, { FC, useEffect, useState } from 'react';
+import { Board } from '../models/Board';
 import CellComp from './CellComp';
 import { Cell } from '../models/Cell';
+import Player from '../models/Player';
+import { Colors } from '../models/Colors';
 
 
 interface BoardProps {
     board: Board;
-    setBoard: (board: Board) => void
+    setBoard: (board: Board) => void;
+    currentPlayer: Player | null;
+    swapPlayer: () => void;
 }
 
-const BoardComp: FC<BoardProps> = ({ board, setBoard }) => {
+const BoardComp: FC<BoardProps> = ({ board, setBoard, currentPlayer, swapPlayer }) => {
 
-    const [selectedCell, setSelectedCell] = useState<Cell | null>(null)
+    const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
-    useEffect( () => {
-        highlightCells()
+    useEffect(() => {
+        highlightCells();
     }, [selectedCell])
 
     function clickOnCell(cell: Cell) {
         if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
             selectedCell.moveFigure(cell);
             setSelectedCell(null);
+            swapPlayer()
         } else {
-            setSelectedCell(cell)
+            if (cell.figure?.color === currentPlayer?.color) {
+                setSelectedCell(cell);
+            }
         }
     }
     function highlightCells() {
@@ -35,23 +42,26 @@ const BoardComp: FC<BoardProps> = ({ board, setBoard }) => {
     }
 
     return (
-        <div className='board'>
-            {board.cells.map((row, index) =>
-                <React.Fragment key={index}>
-                    {row.map(cell =>
-                        <CellComp
-                            key={cell.id}
-                            cell={cell}
-                            selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
-                            clickFunc={clickOnCell}
-                        />
-                    )}
-                </React.Fragment>
-            )
+        <div>
+            <h3>Ход {currentPlayer?.color === Colors.WHITE ? "белых" : "чёрных"}</h3>
+            <div className='board'>
+                {board.cells.map((row, index) =>
+                    <React.Fragment key={index}>
+                        {row.map(cell =>
+                            <CellComp
+                                key={cell.id}
+                                cell={cell}
+                                selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
+                                clickFunc={clickOnCell}
+                            />
+                        )}
+                    </React.Fragment>
+                )
 
-            }
+                }
+            </div>
         </div>
     )
 }
 
-export default BoardComp
+export default BoardComp;

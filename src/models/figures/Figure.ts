@@ -1,6 +1,6 @@
-import logo from '../../assets/black-king.png'
+import logo from '../../assets/black-king.png';
 import { Cell } from '../Cell';
-import { Colors } from '../Colors'
+import { Colors } from '../Colors';
 
 
 export enum FigureNames {
@@ -25,15 +25,15 @@ export class Figure {
         this.cell = cell;
         this.cell.figure = this;
         this.logo = null;
-        this.name = FigureNames.FIGURE
-        this.id = Math.random()
+        this.name = FigureNames.FIGURE;
+        this.id = Math.random();
     }
 
     canMove(target: Cell) : boolean {
-        if (target.figure?.color === this.color) return false
-        if (target.figure?.name === FigureNames.KING) return false
+        if (target.figure?.color === this.color) return false;
+        if (target.figure?.name === FigureNames.KING) return false;
 
-        return true
+        return true;
     }
     moveFigure(target: Cell) {
     }
